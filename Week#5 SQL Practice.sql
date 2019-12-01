@@ -46,6 +46,7 @@ create table salary(
     emp_id number(6) not null,
     dept_id number(6) not null,
     sal_date date not null,
+    sal_bonus number(10) not null,
     sal_bonus number(10) null,
     constraint salpk primary key(sal_id),
     constraint empfk foreign key(emp_id) references employee(emp_id),
@@ -102,7 +103,7 @@ select * from salary order by sal_date desc;
 
 /* 15. count, min, max, avg, stddev, to_char를 이용해 데이터 계산, 변환 */
 select count(*) as nums_emp from employee;
-select min(sal_val) min_sal, max(sal_val), max_sal, avg(sal_val) mean_sal, stddev(sal_val) std_sal from salary;
+select min(sal_val) min_sal, max(sal_val) max_sal, avg(sal_val) mean_sal, stddev(sal_val) std_sal from salary;
 /* to_char는 숫자나 날짜 형식의 데이터를 특정한 형식으로 바꾸는 연산자이며 데이터 형식은 string으로 바뀐다 */
 select emp_id, to_char(sal_val, '$9,999.99') salary from salary;
 select emp_id, to_char(sal_val, '$9,999.99') salary, to_char(sal_date, 'yyyy-mm') year_month from salary;
