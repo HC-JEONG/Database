@@ -46,7 +46,7 @@ create table salary(
     emp_id number(6) not null,
     dept_id number(6) not null,
     sal_date date not null,
-    sal_bonus number(10) not null,
+    sal_val number(10) not null,
     sal_bonus number(10) null,
     constraint salpk primary key(sal_id),
     constraint empfk foreign key(emp_id) references employee(emp_id),
