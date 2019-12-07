@@ -131,7 +131,7 @@ where s.dept_id=d.dept_id group by d.dept_id, d.dept_name having min(sal_val)<=1
 /* 18~19. subquery 쿼리 안에 쿼리가 있는 형태, 구체적인 조건을 구현할 때 씀 */
 select e.emp_name from employee e, salary s
 where s.emp_id=e.emp_id and s.dept_id in
-(select dept_id) from department where dept_name like '%ing%');
+(select dept_id from department where dept_name like '%ing%');
 
 select e.emp_name from employee e, salary s
 where s.emp_id=e.emp_id and s.dept_id not in
