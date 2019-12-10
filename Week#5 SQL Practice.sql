@@ -113,13 +113,13 @@ select dept_id, count(*) nums_emp from salary group by dept_id;
 /* having은 결과값을 필터링 하는 역할 */
 select dept_id, avg(sal_val) mean_sal from salary group by dept_id having avg(sal_val)>=1000;
 select dept_id, max(sal_val) max_sal from salary group by dept_id having max(sal_val)>=2000;
-select dept_id, min(sal_val) main_sal from salary group by dept_it having min(sal_val)<=1000;
+select dept_id, min(sal_val) main_sal from salary group by dept_id having min(sal_val)<=1000;
 
 /* 17. join은 두 테이블 이상의 데이터를 합칠 때 쓰는 연산자 */
 select d.dept_id, d.dept_name, count(s.dept_id) nums_emp from salary s, department d
 where s.dept_id=d.dept_id group by d.dept_id, d.dept_name;
 
-select d.dept_id, d.dept_name avg(s.sal_val) mean_sal from salary s, department d
+select d.dept_id, d.dept_name, avg(s.sal_val) mean_sal from salary s, department d
 where s.dept_id=d.dept_id group by d.dept_id, d.dept_name having avg(sal_val)>=1000;
 
 select d.dept_id, d.dept_name, max(s.sal_val) max_sal from salary s, department d
@@ -133,6 +133,8 @@ select e.emp_name from employee e, salary s
 where s.emp_id=e.emp_id and s.dept_id in
 (select dept_id from department where dept_name like '%ing%');
 
+select e.emp_name from employee e, salary s, department d where s.emp_id=e.emp_id and d.dept_id=s.dept_id and d.dept_name like '%ing%';
+
 select e.emp_name from employee e, salary s
 where s.emp_id=e.emp_id and s.dept_id not in
 (select dept_id from department where dept_name like '%ing%');
@@ -141,13 +143,17 @@ select e.emp_name, d.dept_name from employee e, salary s, department d
 where s.emp_id=e.emp_id and s.dept_id=d.dept_id and s.dept_id in
 (select dept_id from department where dept_name like '%ing%');
 
-select e.emp_name, d.dept_name from employee e, salary sm department d
+select e.emp_name, d.dept_name from employee e, salary s, department d
 where s.emp_id=e.emp_id and s.dept_id=d.dept_id and s.dept_id not in
 (select dept_id from department where dept_name like '%ing%');
 
-selected e.emp_name, d.dept_name, s.sal_val from employee e, salary s, department d
+select e.emp_name, d.dept_name, s.sal_val from employee e, salary s, department d
 where s.emp_id=e.emp_id and s.dept_id=d.dept_id and s.sal_val>
 (select avg(sal_val) from salary where dept_id=s.dept_id);
+
+select e.emp_name, d.dept_name, s.sal_val from employee e, salary s, department d
+where s.emp_id=e.emp_id and s.dept_id=d.dept_id and s.sal_val>
+(select avg(sal_val) from salary where d.dept_id=s.dept_id);
 
 select e.emp_name, d.dept_name, s.sal_val from employee e, salary s, department d 
 where s.emp_id=e.emp_id and s.dept_id=d.dept_id and s.sal_val<
